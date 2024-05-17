@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <title>JS Events</title>
 </head>
+
 <body>
   <main>
     <h1>Events practice!</h1>
 
+    <!-- clickbutton -->
     <h2>Event listeners</h2>
     <button id="click-button" data-clicks="0">I haven't been clicked!</button>
 
     <p id="keydown-tracker">You haven't pressed a key yet.</p>
 
-    <button
-      id="inline-example"
-      onclick="clickCounterHandler(event)"
-      data-clicks="0"
-    >
+
+
+
+    <button id="inline-example" onclick="clickCounterHandler(event)" data-clicks="0">
       I shouldn't be inline
     </button>
 
@@ -40,4 +42,5 @@
   </main>
   <script src="./modify.js"></script>
 </body>
+
 </html>
