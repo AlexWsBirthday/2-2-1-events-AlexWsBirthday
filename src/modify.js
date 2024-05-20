@@ -6,24 +6,24 @@ const clickCounterHandler = () => {
 
   //targetting the attribute "data-clicks" and converting it into an integer so it can increment
   let numOfClicks = Number(clickButton.getAttribute("data-clicks"));
-  let numOfClicks2 = Number(inline.getAttribute("data-clicks"));
+
   //incrementing the value of data-clicks each time the event occurs.
   //this is where we store the data (the amount of times the user clicked on the button)
   numOfClicks++;
-  numOfClicks2++;
+
 
   //setting the attribute "data-clicks" to match the number that the numOfClicks variable produced, in response to user interaction
   //targeting "dataclicks", setting its value to the number produced in numOfClicks
   clickButton.setAttribute("data-clicks", numOfClicks);
-  inline.setAttribute("data-clicks", numOfClicks);
+
 
   //setting the message counting
   if (numOfClicks === 1) {
     clickButton.textContent = `I've been clicked ${numOfClicks} time.`;
-    inline.textContent = `I've been clicked ${numOfClicks} time.`
+
   } else {
     clickButton.textContent = `I've been clicked ${numOfClicks} times!`;
-    inline.textContent = `I've been clicked ${numOfClicks} times!`;
+
   }
 };
 
@@ -32,9 +32,31 @@ const clickCounterHandler = () => {
 //HOF!
 clickButton.addEventListener("click", clickCounterHandler);
 
-//for the inline button
+
+
+//doing the same for the inline button
 const inline = document.querySelector("#inline-example");
-inline.addEventListener("click", clickCounterHandler)
+const inlineClickCounter = () => {
+
+  let numOfClicks = Number(inline.getAttribute("data-clicks"));
+
+  numOfClicks++
+
+  inline.setAttribute("data-clicks", numOfClicks);
+
+
+  if (numOfClicks === 1) {
+    inline.textContent = `I've been clicked ${numOfClicks} time.`
+
+  } else {
+    inline.textContent = `I've been clicked ${numOfClicks} times!`;
+
+  }
+
+}
+
+//for the inline button
+inline.addEventListener("click", inlineClickCounter)
 
 //-------------------------------------------------------------------------------------------------------------------------------------
 
@@ -54,13 +76,14 @@ const handleKeydown = (event) => {
   keyDownPara.textContent = ` You pressed ${key}`
 
 };
-
+//don't need to create a variable out of an element for this one to receive information, since it listens to the whole body of the document
 document.body.addEventListener("keydown", handleKeydown)
 //source: https://www.reddit.com/r/learnjavascript/comments/m9myip/how_does_keyboardevent_work_keyboardeventkey_does/
 
 //-------------------------------------------------------------------------------------------------------------------------------------
 
-
+const delegation = document.querySelector("#delegation button")
+console.log(delegation)
 // We've started this one for you
 const handleDelegation = (event) => {
 
@@ -68,15 +91,34 @@ const handleDelegation = (event) => {
   const resultSpan = document.querySelector('#delegation-result');
 
   resultSpan.textContent = event.target.textContent;
+
 };
 
+delegation.addEventListener("click-button", handleDelegation);
 
 //-------------------------------------------------------------------------------------------------------------------------------------
 
 
-
+const randomNum = document.querySelector("#add-random-num");
+let randomNumUL = document.getElementById("#random-numbers");
 const addNewRandomNumber = () => {
+
+  const random = Math.floor(Math.random() * 10);
+
+  let newNum = document.createAttribute("li");
+
+  randomNumUL.appendChild(newNum);
+
+
+  newNum.textContent = random;
+
+
+  console.log(newNum)
+
 };
+
+//Click prompts addNewRandomNumber
+randomNum.addEventListener("click", addNewRandomNumber)
 
 
 
