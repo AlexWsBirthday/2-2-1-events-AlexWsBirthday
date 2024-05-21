@@ -82,42 +82,97 @@ document.body.addEventListener("keydown", handleKeydown)
 
 //-------------------------------------------------------------------------------------------------------------------------------------
 
-const delegation = document.querySelector("#delegation button")
-console.log(delegation)
-// We've started this one for you
+//storing the delegation element in the delegation variable (or box)
+const delegation = document.querySelector("#delegation")
+// console.log(delegation)    //making sure I was targeting the right element
+
+
+// Creating the call back function (CBF) which will take in information based on the specific event parameter provided in the addEventListener HOF (if the event was a click within this element, the following will happen).
 const handleDelegation = (event) => {
 
   //getting the parent element, putting it into a variable (box) to work with and access throughout the function
+  //This will allow us to access the textContext property of the element with the ID of "delegation-result".
   const resultSpan = document.querySelector('#delegation-result');
 
-  resultSpan.textContent = event.target.textContent;
+  //conditionals barring resultSpan from being updated unless the TARGET of the event "click" (meaning what was interacted with) matches the element ID of one of the buttons
+  //if the conditions are met, resultSpan's textContent property displays the label of whatever button you pressed (the event target's text contents).
+  if (event.target.matches('#up') || event.target.matches('#middle') || event.target.matches('#down') || event.target.matches('#left') || event.target.matches('#right')) {
+    resultSpan.textContent = event.target.textContent;
+  } else {
+    //if none of these conditions are met, then the resultSpan textContent is not updated. Instead, the message below is returned in the console. 
+    console.log('not a button')
+  }
+
 
 };
 
-delegation.addEventListener("click-button", handleDelegation);
+//adding the event listener HOF to the delegation variable storing the delegation element. It looks out for a "click" event. 
+//When that paramenter is notified that this specified event occurred, it proceeds to feed the information about the event into the CBF. 
+delegation.addEventListener("click", handleDelegation);
+
+//-------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+//-------------------------------------------------------------------------------------------------------------------------------------
+
+//REMOVING AN EVENT LISTENER
+
+//making a variable for event-listener-removing button
+const removeButton = document.querySelector("#remove")
+
+//making the button's whole purpose being to target the element with the delegation ID and remove the event listener we built
+//the contents inside the removeEventListener HOF must be identical to the parameters of the eventlistener its removing
+const removeDelListener = () => {
+  delegation.removeEventListener("click", handleDelegation)
+}
+
+
+removeButton.addEventListener('click', removeDelListener)
+
+
 
 //-------------------------------------------------------------------------------------------------------------------------------------
 
 
 const randomNum = document.querySelector("#add-random-num");
-let randomNumUL = document.getElementById("#random-numbers");
-const addNewRandomNumber = () => {
+let randomNumUL = document.querySelector('#random-numbers')
+const addNewRandomNumber = (event) => {
 
-  const random = Math.floor(Math.random() * 10);
+  //   const ul = document.querySelector('#counting-list');
+  // ul.addEventListener('click', (event) => {
+  //   if (event.target.matches('li')) {
+  //     const numberOfLiClicked = Number(event.target.innerText);
+  //     const li = document.createElement('li');
+  //     li.innerText = numberOfLiClicked + 1
+  //     event.currentTarget.append(li);
+  //   }
+  // })
 
-  let newNum = document.createAttribute("li");
 
-  randomNumUL.appendChild(newNum);
+  //create the list element
+  const li = document.createElement('li');
+
+  //generate the random number
+  const randomNumGenerator = Math.floor(Math.random() * 100)
+
+  //putting the random number inside of the generated list element
+  li.innerText = randomNumGenerator
+
+  //adding the random number list item to the existing ul element 
+  randomNumUL.append(li)
 
 
-  newNum.textContent = random;
 
 
-  console.log(newNum)
+
 
 };
 
-//Click prompts addNewRandomNumber
+//adding an ear to the random number button, listening for a click. the click prompts addNewRandomNumber CBF
 randomNum.addEventListener("click", addNewRandomNumber)
 
 
